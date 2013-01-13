@@ -15,6 +15,13 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <style>
+/*         	#container { */
+/*         		display: block; */
+/*         		width: 100%; */
+/*         		height: 100%; */
+/*         	} */
+        </style>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -24,10 +31,37 @@
         <!-- Add your site or application content here -->
         <p>Hello world! This is HTML5 Boilerplate template.</p>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<div id="container"></div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+		
+		<script src="js/vendor/kinetic-v4.3.0.min.js"></script>
+	    <script>
+	    	var stage = new Kinetic.Stage({
+	        	container: 'container',
+	       		width: $(window).width(), 
+	        	height: $(window).height()
+	      	});
+	
+	      	var layer = new Kinetic.Layer();
+			
+			var circle = new Kinetic.Circle({
+				x: $(window).width() / 2,
+				y: $(window).height() / 2,
+				radius: 50,
+				stroke: 'grey', 
+				strokeWidth: 1
+			});
+			
+			// add the shape to the layer
+			layer.add(circle);
+			
+			// add the layer to the stage
+			stage.add(layer);
+	    </script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
