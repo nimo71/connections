@@ -6,13 +6,8 @@ window.application.glyph = window.application.glyph || {};
 	glyph.RoundButton = function(x, y, text) {
 		glyph.Glyph.call( this, x, y );
 		this.text = text;
-	} 
-	glyph.RoundButton.prototype = Object.create( glyph.Glyph.prototype );
-	glyph.RoundButton.prototype.constructor = glyph.RoundButton;
-	
-	glyph.RoundButton.prototype.draw = function(layer) {
 		
-		var circle = new Kinetic.Circle({
+		this.circle = new Kinetic.Circle({
 			x: this.x,
 			y: this.y,
 			radius: 50,
@@ -20,7 +15,7 @@ window.application.glyph = window.application.glyph || {};
 			strokeWidth: 1
 		});
 		
-		var loginText = new Kinetic.Text({
+		this.loginText = new Kinetic.Text({
 	        x: this.x,
 	        y: this.y,
 	        text: this.text,
@@ -29,13 +24,22 @@ window.application.glyph = window.application.glyph || {};
 	        fill: 'grey'
 	    });
 		
-		loginText.setOffset({
-	        x: loginText.getWidth() / 2, 
-	        y: loginText.getHeight() / 2
+		this.loginText.setOffset({
+	        x: this.loginText.getWidth() / 2, 
+	        y: this.loginText.getHeight() / 2
 	    });
-		
-		layer.add(circle);	
-		layer.add(loginText);
+	} 
+	
+	glyph.RoundButton.prototype = Object.create( glyph.Glyph.prototype );
+	glyph.RoundButton.prototype.constructor = glyph.RoundButton;
+	
+	glyph.RoundButton.prototype.onClick = function( clickHandler ) {
+		this.circle.on("click", clickHandler)
+	}
+	
+	glyph.RoundButton.prototype.draw = function(layer) {
+		layer.add(this.loginText);
+		layer.add(this.circle);	
 	}
 	
 }( window.application.glyph ));

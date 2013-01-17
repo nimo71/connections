@@ -11,9 +11,13 @@
   	var centreStageX = stage.getWidth() / 2;
 	var centreStageY = stage.getHeight() / 2;
 	
-	var loginButton = new application.glyph.RoundButton(centreStageX, centreStageY, 'Login')
+	var loginButton = new application.glyph.RoundButton(centreStageX, centreStageY, 'Login');
 	
 	loginButton.draw(layer);
+
+	loginButton.onClick(function(ev) {
+		alert("click!!");
+	});
 	
 	stage.add(layer);
 
