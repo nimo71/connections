@@ -1,7 +1,7 @@
 window.application = window.application || {};
 window.application.glyph = window.application.glyph || {};
 
-(function( glyph ) {
+(function( glyph, $ ) {
 	
 	glyph.RoundButton = function(x, y, text) {
 		glyph.Glyph.call( this, x, y );
@@ -42,4 +42,4 @@ window.application.glyph = window.application.glyph || {};
 		layer.add(this.circle);	
 	}
 	
-}( window.application.glyph ));
+}( window.application.glyph, jQuery ));

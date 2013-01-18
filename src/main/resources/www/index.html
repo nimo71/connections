@@ -16,11 +16,10 @@
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
         <style>
-/*         	#container { */
-/*         		display: block; */
-/*         		width: 100%; */
-/*         		height: 100%; */
-/*         	} */
+        	#loginForm {
+        		display: none;
+        		postition: absolute;
+        	}
         </style>
     </head>
     <body>
@@ -30,7 +29,20 @@
 
         <!-- Add your site or application content here -->
 		<div id="container"></div>
-
+		
+		<div id="loginForm">
+			<h1>Login to manage your situation...</h1>
+			<form>
+				<label>Email</label>
+				<input id="email" type="text"/>
+				
+				<label>Password</label>
+				<input id="password" type="password"/>
+				
+				<button>Login</button>
+			</form>
+		</div>
+		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.3.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
@@ -39,6 +51,7 @@
 		<script src="js/vendor/kinetic-v4.3.0.min.js"></script>
 		<script src="js/Glyph.js"></script>		
 		<script src="js/RoundButton.js"></script>		
+		<script src="js/LoginForm.js"></script>		
 		<script src="js/Application.js"></script>		
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
