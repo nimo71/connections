@@ -13,7 +13,7 @@ window.application = window.application || {};
   	var centreStageX = stage.getWidth() / 2;
 	var centreStageY = stage.getHeight() / 2;
 	
-	var loginButton = new application.glyph.RoundButton(centreStageX, centreStageY, "Login");
+	var loginButton = new application.glyph.RoundButton(centreStageX, centreStageY, "Log In");
 	
 	loginButton.draw(layer);
 

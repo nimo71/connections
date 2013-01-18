@@ -16,7 +16,13 @@ object Server {
 			  	case Path(Seg("api"::_)) => Ok ~> ResponseString("api call")
 			  	case Path(p) => {
 	  				try {
-	  					Ok ~> ResponseString(new File("src/main/resources/www/%s".format(p)).content)
+	  					val responseContent = new File("src/main/resources/www/%s".format(p)).content
+	  					p.split("""\.""") match {
+	  						case Array(_, "html") => Ok ~> HtmlContent ~> ResponseString(responseContent)
+	  					  	case Array(_, "css") => Ok ~> CssContent ~> ResponseString(responseContent) 
+	  					  	case Array(_, "js") => Ok ~> JsContent ~> ResponseString(responseContent) 
+	  					  	case _ => Ok ~> ResponseString(responseContent)
+	  					}
 	  				}
 	  				catch {
 	  				  	case _ => NotFound ~> ResponseString(new File("src/main/resources/www/404.html").content)

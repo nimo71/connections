@@ -3,7 +3,6 @@ window.application.form = window.application.form || {};
 
 (function( form, $ ) {
 	
-	
 	form.LoginForm = function() {
 		this.loginBackground = $("#loginBackground");
 		this.loginForm = $("#loginForm");
@@ -19,7 +18,6 @@ window.application.form = window.application.form || {};
 		    "top": loginFormTop +"px",
 		    "left": loginFormLeft +"px"
 		});
-		
 	}
 	
 	form.LoginForm.prototype.show = function() {
@@ -37,9 +35,6 @@ window.application.form = window.application.form || {};
 			return function() {
 				if (listener) {
 					listener(emailInput.val(), passwordInput.val());
-				}
-				else {
-					alert("No login listener!!"); // TODO: Log to the console here!!!
 				}
 				return false;
 			}
