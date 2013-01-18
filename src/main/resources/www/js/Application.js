@@ -17,12 +17,13 @@ window.application = window.application || {};
 	
 	loginButton.draw(layer);
 
+	var loginForm = new application.form.LoginForm();
+	loginForm.onLogin(function(email, password) {
+		alert("Logging in with: email="+ email +" and password="+ password +".");
+		loginForm.hide();
+	});
+	
 	loginButton.onClick(function(ev) {
-		var loginForm = new application.form.LoginForm();
-		loginForm.onLogin(function(email, password) {
-			alert("Logging in with: email="+ email +" and password="+ password +".");
-			loginForm.hide();
-		});
 		loginForm.show();
 	});
 	

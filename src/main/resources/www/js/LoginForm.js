@@ -5,7 +5,8 @@ window.application.form = window.application.form || {};
 	
 	
 	form.LoginForm = function() {
-		this.loginFormEl = $("#loginForm");
+		this.loginBackground = $("#loginBackground");
+		this.loginForm = $("#loginForm");
 		this.loginButton = $("#loginForm button");
 		this.emailInput = $("#email");
 		this.passwordInput = $("#password");
@@ -13,7 +14,7 @@ window.application.form = window.application.form || {};
 		var loginFormTop = $("#container").height() / 2 - $("#loginForm").height() / 2;
 		var loginFormLeft = $("#container").width() / 2 - $("#loginForm").width() / 2;
 		
-		this.loginFormEl.css({
+		this.loginForm.css({
 		    "position": "absolute",
 		    "top": loginFormTop +"px",
 		    "left": loginFormLeft +"px"
@@ -22,11 +23,13 @@ window.application.form = window.application.form || {};
 	}
 	
 	form.LoginForm.prototype.show = function() {
-		this.loginFormEl.show();	
+		this.loginBackground.fadeTo("fast", 0.5);
+		this.loginForm.fadeIn("fast");	
 	}
 	
 	form.LoginForm.prototype.hide = function() {
-		this.loginFormEl.hide();	
+		this.loginForm.fadeOut("slow");	
+		this.loginBackground.fadeOut("slow");
 	}
 	
 	form.LoginForm.prototype.onLogin = function(loginListener) {
