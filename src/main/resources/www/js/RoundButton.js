@@ -44,7 +44,7 @@ window.application.glyph = window.application.glyph || {};
 	
 	glyph.RoundButton.prototype.touchend = function(e) {
 		var touch = e.changedTouches[0];
-		if (this.contains(touch.x, touch.y)) {
+		if (this.contains(touch.clientX, touch.clientY)) {
 			this.touchendHandler(touch);
 		}
 	}
