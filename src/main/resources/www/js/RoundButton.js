@@ -50,10 +50,10 @@ window.application.glyph = window.application.glyph || {};
 	}
 	
 	glyph.RoundButton.prototype.contains = function(x, y) {
-		var dx = x - this.circle.x;
-		var dy = this.circle.y - y;
+		var dx = x - this.circle.getX();
+		var dy = this.circle.y - getY();
 		
-		return sqrt((dx * dx) + (dy * dy)) <= this.circle.radius
+		return sqrt((dx * dx) + (dy * dy)) <= this.circle.getRadius()
 	}
 	
 	
