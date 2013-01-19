@@ -16,7 +16,7 @@ window.application = window.application || {};
 	var loginButton = new application.glyph.RoundButton(centreStageX, centreStageY, "Log In");
 	
 	loginButton.draw(layer);
-
+	
 	var loginForm = new application.form.LoginForm();
 	loginForm.onLogin(function(email, password) {
 		alert("Logging in with: email="+ email +" and password="+ password +".");
@@ -26,7 +26,7 @@ window.application = window.application || {};
 	loginButton.onClick(function(ev) {
 		loginForm.show();
 	});
-	
+
 	stage.add(layer);
 
 }( window.application, jQuery ));
