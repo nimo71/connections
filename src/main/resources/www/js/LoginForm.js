@@ -19,9 +19,16 @@ window.application.form = window.application.form || {};
 		
 		this.loginBackground = $("#loginBackground");
 		this.loginForm = $("#loginForm");
-		this.loginButton = $("#loginForm button");
+		this.loginButton = $("#loginButton");
+		this.cancelButton = $("#cancelButton");
 		this.emailInput = $("#email");
 		this.passwordInput = $("#password");
+		
+		var that = this;
+		this.cancelButton.click(function() {
+			that.hide();
+			return false;
+		});
 	}
 				
 	form.LoginForm.prototype.show = function() {

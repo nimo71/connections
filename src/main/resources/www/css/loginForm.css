@@ -29,9 +29,13 @@
 	width: 15em;
 	margin-top: 1em;
 }
+#buttons {
+	float: right;
+	clear: both;
+}
 #loginForm button {
   	float: right;
-  	clear: both;
   	margin-top: 1em;
+  	margin-left: 1em;
 	width: 4em;
-} 
+}
