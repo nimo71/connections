@@ -33,7 +33,7 @@ window.application.glyph = window.application.glyph || {};
 	glyph.RoundButton.prototype = Object.create( glyph.Glyph.prototype );
 	glyph.RoundButton.prototype.constructor = glyph.RoundButton;
 	
-	glyph.RoundButton.prototype.onClick = function( clickHandler ) {
+	glyph.RoundButton.prototype.onClick = function(clickHandler) {
 		this.circle.on("click", clickHandler)
 	}
 	
@@ -41,5 +41,19 @@ window.application.glyph = window.application.glyph || {};
 		layer.add(this.loginText);
 		layer.add(this.circle);	
 	}
+	
+	glyph.RoundButton.prototype.touchend = function(touch) {
+		if (this.contains(touch.x, touch.y)) {
+			this.touchendHandler(touch);
+		}
+	}
+	
+	glyph.RoundButton.prototype.contains = function(x, y) {
+		var dx = x - this.circle.x;
+		var dy = this.circle.y - y;
+		
+		return sqrt((dx * dx) + (dy * dy)) <= this.circle.radius
+	}
+	
 	
 }( window.application.glyph, jQuery ));

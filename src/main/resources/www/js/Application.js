@@ -26,6 +26,10 @@ window.application = window.application || {};
 	loginButton.onClick(function(ev) {
 		loginForm.show();
 	});
+	
+	loginButton.onTouchend(function(touch) {
+		loginForm.show();
+	});
 
 	stage.add(layer);
 
