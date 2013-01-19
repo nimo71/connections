@@ -53,7 +53,7 @@ window.application.glyph = window.application.glyph || {};
 		var dx = x - this.circle.getX();
 		var dy = this.circle.y - getY();
 		
-		return sqrt((dx * dx) + (dy * dy)) <= this.circle.getRadius()
+		return sqrt((dx * dx) + (dy * dy)) <= this.circle.getRadius();
 	}
 	
 	
