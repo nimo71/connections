@@ -20,31 +20,35 @@ window.application.touch = window.application.touch || {};
 	}
 	
 	document.addEventListener('touchstart', function(e) {
-		e.preventDefault();
+//		e.preventDefault();
 		listeners.forEach(function(listener) {
 			if (listener.touchstart) listener.touchstart(e);
 		});
+		return false;
 	}, false);
 	
 	document.addEventListener('touchmove', function(e) {
-		e.preventDefault();
+//		e.preventDefault();
 		listeners.forEach(function(listener) {
 			if (listener.touchmove) listener.touchmove(e);
 		});
+		return false;
 	}, false);
 	
 	document.addEventListener('touchend', function(e) {
-		e.preventDefault();
+//		e.preventDefault();
 		listeners.forEach(function(listener) {
 			if (listener.touchend) listener.touchend(e);
 		});
+		return false;
 	}, false);
 	
 	document.addEventListener('touchcancel', function(e) {
-		e.preventDefault();
+//		e.preventDefault();
 		listeners.forEach(function(listener) {
 			if (listener.touchcancel) listener.touchcancel(e);
 		});
+		return false;
 	}, false);
 	
 } (window.application.touch));
