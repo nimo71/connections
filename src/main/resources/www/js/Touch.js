@@ -20,7 +20,6 @@ window.application.touch = window.application.touch || {};
 	}
 	
 	document.addEventListener('touchstart', function(e) {
-//		e.preventDefault();
 		listeners.forEach(function(listener) {
 			if (listener.touchstart) listener.touchstart(e);
 		});
@@ -28,7 +27,6 @@ window.application.touch = window.application.touch || {};
 	}, false);
 	
 	document.addEventListener('touchmove', function(e) {
-//		e.preventDefault();
 		listeners.forEach(function(listener) {
 			if (listener.touchmove) listener.touchmove(e);
 		});
@@ -36,7 +34,6 @@ window.application.touch = window.application.touch || {};
 	}, false);
 	
 	document.addEventListener('touchend', function(e) {
-//		e.preventDefault();
 		listeners.forEach(function(listener) {
 			if (listener.touchend) listener.touchend(e);
 		});
@@ -44,7 +41,6 @@ window.application.touch = window.application.touch || {};
 	}, false);
 	
 	document.addEventListener('touchcancel', function(e) {
-//		e.preventDefault();
 		listeners.forEach(function(listener) {
 			if (listener.touchcancel) listener.touchcancel(e);
 		});

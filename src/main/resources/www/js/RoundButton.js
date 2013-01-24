@@ -19,7 +19,7 @@ window.application.glyph = window.application.glyph || {};
 	        x: this.x,
 	        y: this.y,
 	        text: this.text,
-	        fontSize: 30,
+	        fontSize: 20,
 	        fontFamily: 'Calibri',
 	        fill: 'grey'
 	    });
@@ -54,6 +54,10 @@ window.application.glyph = window.application.glyph || {};
 		var dy = this.circle.getY() - y;
 		
 		return Math.sqrt((dx * dx) + (dy * dy)) <= this.circle.getRadius();
+	}
+	
+	glyph.RoundButton.prototype.connectionPoint = function(to) {
+		return new glyph.Point(this.circle.getX(), this.circle.getY());
 	}
 	
 	
