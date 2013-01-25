@@ -1,6 +1,8 @@
 window.application = window.application || {};
+window.util = window.util || {};
+window.util.collections = window.util.collections || {};
 
-(function(application, $) {
+(function(application, collections, $) {
 	
    	var stage = new Kinetic.Stage({
     	container: "container",
@@ -13,33 +15,38 @@ window.application = window.application || {};
   	var centreStageX = stage.getWidth() / 2;
 	var centreStageY = stage.getHeight() / 2;
 	
-	var loginButton = new application.glyph.RoundButton(centreStageX - 200, centreStageY, "Log In");
-	var registerButton = new application.glyph.RoundButton(centreStageX + 200, centreStageY, "Register");
-	var connectionsButton = new application.glyph.RoundButton(centreStageX, centreStageY, "Cxns");
-	var connection1 = new application.glyph.Connection(connectionsButton, loginButton);
-	var connection2 = new application.glyph.Connection(connectionsButton, registerButton);
-	
-	
-	loginButton.draw(layer);
-	registerButton.draw(layer);
-	connectionsButton.draw(layer);
-	connection1.draw(layer);
-	connection2.draw(layer);
-	
+	var loginBtn = new application.glyph.RoundButton(centreStageX - 200, centreStageY, "Log In");
 	var loginForm = new application.form.LoginForm();
 	loginForm.onLogin(function(email, password) {
 		alert("Logging in with: email="+ email +" and password="+ password +".");
 		loginForm.hide();
 	});
-	
-	loginButton.onClick(function(ev) {
+	loginBtn.onClick(function(ev) {
 		loginForm.show();
-	});
-	
-	loginButton.onTouchend(function(touch) {
+	});	
+	loginBtn.onTouchend(function(touch) {
 		loginForm.show();
 	});
 
+	var registerBtn = new application.glyph.RoundButton(centreStageX + 200, centreStageY, "Register");
+	var cxnsBtn = new application.glyph.RoundButton(centreStageX, centreStageY, "Cxns");
+	
+	var glyphs = collections.List.empty()
+		.cons(loginBtn)
+		.cons(registerBtn)
+		.cons(cxnsBtn)
+		.cons(new application.glyph.Connection(cxnsBtn, loginBtn))
+		.cons(new application.glyph.Connection(cxnsBtn, registerBtn));
+	
+	
+	collections.List.empty().tail();
+	collections.List.empty().cons(1).tail();
+	collections.List.empty().cons(1).cons(2).tail();
+	
+	glyphs.foreach(function(glyph) {
+		glyph.draw(layer);
+	});
+	
 	stage.add(layer);
 
-}( window.application, jQuery ));
+}( window.application, window.util.collections, jQuery ));
