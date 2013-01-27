@@ -15,7 +15,7 @@ window.util.collections = window.util.collections || {};
   	var centreStageX = stage.getWidth() / 2;
 	var centreStageY = stage.getHeight() / 2;
 	
-	var loginBtn = new application.glyph.RoundButton(centreStageX - 200, centreStageY, "Log In");
+	var loginBtn = new application.glyph.RoundButton(centreStageX - 200, centreStageY + 100, "Log In");
 	var loginForm = new application.form.LoginForm();
 	loginForm.onLogin(function(email, password) {
 		alert("Logging in with: email="+ email +" and password="+ password +".");
@@ -28,8 +28,21 @@ window.util.collections = window.util.collections || {};
 		loginForm.show();
 	});
 
-	var registerBtn = new application.glyph.RoundButton(centreStageX + 200, centreStageY, "Register");
-	var cxnsBtn = new application.glyph.RoundButton(centreStageX, centreStageY, "Cxns");
+	var registerBtn = new application.glyph.RoundButton(centreStageX + 200, centreStageY + 100, "Register");
+//	var registrationForm = new appliction.form.RegistrationForm();
+//	registrationForm.onRegister(function(email, confirmEmail, password, confirmPassword) {
+//		alert("Registering with: email=" + email + ", confirmEmail=" + confirmEmail + ", password=" + password + ", and confirmPassword=" + confirmPassword);
+//		registrationForm.hide();
+//	});
+//	registrationForm.onClick(function(ev) {
+//		registrationForm.show();
+//	});	
+//	registrationForm.onTouchend(function(touch) {
+//		registrationForm.show();
+//	});
+	
+	
+	var cxnsBtn = new application.glyph.RoundButton(centreStageX, centreStageY - 100, "Cxns");
 	
 	var glyphs = collections.List.empty()
 		.cons(loginBtn)
@@ -37,11 +50,6 @@ window.util.collections = window.util.collections || {};
 		.cons(cxnsBtn)
 		.cons(new application.glyph.Connection(cxnsBtn, loginBtn))
 		.cons(new application.glyph.Connection(cxnsBtn, registerBtn));
-	
-	
-	collections.List.empty().tail();
-	collections.List.empty().cons(1).tail();
-	collections.List.empty().cons(1).cons(2).tail();
 	
 	glyphs.foreach(function(glyph) {
 		glyph.draw(layer);

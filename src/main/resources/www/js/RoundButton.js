@@ -8,16 +8,16 @@ window.application.glyph = window.application.glyph || {};
 		this.text = text;
 		
 		this.circle = new Kinetic.Circle({
-			x: this.x,
-			y: this.y,
+			x: this.getX(),
+			y: this.getY(),
 			radius: 50,
 			stroke: 'grey', 
 			strokeWidth: 1
 		});
 		
 		this.loginText = new Kinetic.Text({
-	        x: this.x,
-	        y: this.y,
+	        x: this.getX(),
+	        y: this.getY(),
 	        text: this.text,
 	        fontSize: 20,
 	        fontFamily: 'Calibri',
@@ -57,7 +57,27 @@ window.application.glyph = window.application.glyph || {};
 	}
 	
 	glyph.RoundButton.prototype.connectionPoint = function(to) {
-		return new glyph.Point(this.circle.getX(), this.circle.getY());
+		var circleX = this.circle.getX();
+		var circleY = this.circle.getY();
+		
+		var posDx = to.getX() - circleX;
+		var posDy = circleY - to.getY(); 
+		
+		var circleRadius = this.circle.getRadius();
+		var theta = Math.atan(posDy / posDx);
+		
+		var dx = circleRadius * Math.cos(theta) 
+//					* ((posDy > 0) ? 1 : -1) 
+					* ((posDx > 0) ? 1 : -1);
+		
+		var dy = circleRadius * Math.sin(theta) 
+//					* ((posDy > 0) ? -1 : 1) 
+					* ((posDx > 0) ? -1 : 1) ;
+		
+		var x = circleX + dx;
+		var y = circleY + dy;
+		
+		return new glyph.Point(x, y);
 	}
 	
 	

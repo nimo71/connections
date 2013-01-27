@@ -10,7 +10,7 @@ window.application.glyph = window.application.glyph || {};
 		this.line = new Kinetic.Line({
 			stroke: 'grey', 
 			strokeWidth: 1,
-			points: [ this.start.x, this.start.y, this.end.x, this.end.y ]
+			points: [ this.start.getX(), this.start.getY(), this.end.getX(), this.end.getY() ]
 		});
 	}
 	glyph.Connection.prototype = Object.create( glyph.Glyph.prototype );
