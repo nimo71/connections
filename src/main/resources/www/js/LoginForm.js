@@ -3,18 +3,19 @@ window.application.form = window.application.form || {};
 
 (function( form, $ ) {
 	
-	form.LoginForm = function(html) {
+	form.LoginForm = function() {
 		
-		$("head").append("<link rel='stylesheet' href='css/loginForm.css'>");
+		this.stylesheet = $("<link rel='stylesheet' href='css/loginForm.css'>");
+		$("head").append(this.stylesheet);
 		
 		$.ajax({ type: "GET",   
-		     url: "/loginForm.html",   
-		     async: false,
-		     success : function(html)
-		     {
-		    	 $("body").append(html);
-		    	 $(html).hide();
-		     }
+		    url: "/loginForm.html",   
+		    async: false,
+		    success : function(html)
+		    {
+		    	$("body").append(html);
+		    	$(html).hide();
+		    }
 		});
 		
 		this.loginBackground = $("#loginBackground");
@@ -24,6 +25,11 @@ window.application.form = window.application.form || {};
 		this.emailInput = $("#email");
 		this.passwordInput = $("#password");
 		
+		this.loginForm.css({
+ 		    "position": "absolute",
+ 		    "display": "none"
+ 		});
+		
 		var that = this;
 		this.cancelButton.click(function() {
 			that.hide();
@@ -31,26 +37,31 @@ window.application.form = window.application.form || {};
 		});
 	}
 				
-	form.LoginForm.prototype.show = function() {
+	form.LoginForm.prototype.show = function() {	
 		var loginFormTop = $("#container").height() / 2 - $("#loginForm").height() / 2;
-		var loginFormLeft = $("#container").width() / 2 - $("#loginForm").width() / 2;
-		
-		this.loginForm.css({
-		    "position": "absolute",
-		    "display": "none",
-		    "top": loginFormTop +"px",
-		    "left": loginFormLeft +"px"
-		});
-		this.loginBackground.fadeTo("fast", 0.5);
-		this.loginForm.fadeIn("fast");	
+ 		var loginFormLeft = $("#container").width() / 2 - $("#loginForm").width() / 2;
+ 		
+ 		this.loginForm.css({
+ 		    "top": loginFormTop +"px",
+ 		    "left": loginFormLeft +"px"
+ 		});
+		this.loginBackground.css({ opacity: "0.5" });
+		this.loginForm.fadeIn("slow");	
 	}
 	
 	form.LoginForm.prototype.hide = function() {
-		this.loginForm.fadeOut("slow");	
-		this.loginBackground.fadeOut("slow");
+		var loginForm = this;
+		this.loginForm.fadeOut("slow", function() {
+			this.remove();
+		});	
+		this.loginBackground.fadeOut("slow", function() {
+			this.remove();
+			loginForm.stylesheet.remove();
+		});
 	}	
 	
 	form.LoginForm.prototype.onLogin = function(loginListener) {
+		var that = this;
 		function createLoginCallback(emailInput, passwordInput, listener) {
 			return function() {
 				if (listener) {
@@ -59,6 +70,10 @@ window.application.form = window.application.form || {};
 				return false;
 			}
 		}	
-		this.loginButton.click( createLoginCallback(this.emailInput, this.passwordInput, loginListener) );
+		this.loginButton.click( 
+				createLoginCallback(
+						this.emailInput, 
+						this.passwordInput, 
+						loginListener) );
 	}
 } ( window.application.form, jQuery ));
