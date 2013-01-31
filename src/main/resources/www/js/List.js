@@ -37,6 +37,16 @@ window.util.collections = window.util.collections || {};
 			fn(head);
 			tail.foreach(fn);
 		}
+		
+		this.remove = function(val) {
+			if (this.head() === val) {
+				return this.tail();
+			}
+			else {
+				tail = this.tail().remove(val);
+				return this;
+			}
+		}
 	}
 	
 	collections.List.empty = function() {
