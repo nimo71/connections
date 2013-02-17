@@ -8,16 +8,16 @@ window.application.glyph = window.application.glyph || {};
 		this.text = text;
 		
 		this.circle = new Kinetic.Circle({
-			x: this.getX(),
-			y: this.getY(),
+			x: x,
+			y: y,
 			radius: 50,
 			stroke: 'grey', 
 			strokeWidth: 1
 		});
 		
 		this.loginText = new Kinetic.Text({
-	        x: this.getX(),
-	        y: this.getY(),
+	        x: x,
+	        y: y,
 	        text: this.text,
 	        fontSize: 20,
 	        fontFamily: 'Calibri',
@@ -67,11 +67,9 @@ window.application.glyph = window.application.glyph || {};
 		var theta = Math.atan(posDy / posDx);
 		
 		var dx = circleRadius * Math.cos(theta) 
-//					* ((posDy > 0) ? 1 : -1) 
 					* ((posDx > 0) ? 1 : -1);
 		
 		var dy = circleRadius * Math.sin(theta) 
-//					* ((posDy > 0) ? -1 : 1) 
 					* ((posDx > 0) ? -1 : 1) ;
 		
 		var x = circleX + dx;

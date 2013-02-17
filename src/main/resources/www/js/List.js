@@ -26,6 +26,14 @@ window.util.collections = window.util.collections || {};
 			return new collections.List(val, tail.cons(head) );
 		}
 		
+		this.consAll = function(vals) { 
+			var thisList = this;
+			vals.foreach(function (val) {
+				thisList = thisList.cons(val);
+			});
+			return thisList;
+		}
+		
 		this.isEmpty = function() {
 			return !head && !tail;
 		}
