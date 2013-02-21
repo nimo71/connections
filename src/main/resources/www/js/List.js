@@ -14,9 +14,9 @@ window.util.collections = window.util.collections || {};
 				return collections.List.empty();
 			}
 			if (tail.tail().isEmpty()) {
-				return new collections.List(tail[0], collections.List.empty());
+				return new collections.List(tail.head(), collections.List.empty());
 			}
-			return new collections.List(tail[0], tail.slice(1));
+			return tail;
 		}
 		
 		this.cons = function(val) {
@@ -54,6 +54,16 @@ window.util.collections = window.util.collections || {};
 				tail = this.tail().remove(val);
 				return this;
 			}
+		}
+		
+		this.filter = function(matcher) {
+			if (this.isEmpty()) {
+				return collections.List.empty();
+			}
+			if (matcher(this.head())) {
+				return new collections.List(this.head(), this.tail().filter(matcher));
+			}
+			return this.tail().filter(matcher);
 		}
 	}
 	

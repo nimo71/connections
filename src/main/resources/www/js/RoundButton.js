@@ -78,5 +78,11 @@ window.application.glyph = window.application.glyph || {};
 		return new glyph.Point(x, y);
 	}
 	
+	glyph.RoundButton.prototype.move = function(toX, toY) {
+		this._x = toX; 
+		this._y = toY;
+		this.circle.setPosition(toX, toY);
+		this.loginText.setPosition(toX, toY);
+	};
 	
 }( window.application.glyph, jQuery ));

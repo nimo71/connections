@@ -26,8 +26,8 @@ window.application.physics = window.application.physics || {};
 			bodies.foreach(function (body) {
 				if (forces[body]) {
 					eq = eq 
-						&& forces[body].getX() < 1 
-						&& forces[body].getY() < 1;
+						&& Math.abs(forces[body].getX()) < 1 
+						&& Math.abs(forces[body].getY()) < 1;
 				}
 			});
 			return eq;
@@ -47,18 +47,9 @@ window.application.physics = window.application.physics || {};
 				
 				bodies.foreach(function(body) {
 					var theta = angle(body.getPosition(), c);
-					var sqrMag = magnitude * magnitude;
-					var cax =  Math.sqrt(sqrMag * Math.cos(theta));
-					var cay = Math.sqrt(sqrMag * Math.sin(theta));
-					
-					var force = new physics.Force(cax, cay);
-					
-					if (!forces[body]) {
-						forces[body] = force;
-					}
-					else {
-						forces[body] = forces[body].add(force);
-					}
+					var cax = magnitude * Math.cos(theta);
+					var cay = magnitude * Math.sin(theta);
+					forces[body] = new physics.Force(cax, cay);
 				});
 			}
 			centralAttraction(centralAttractor);

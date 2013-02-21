@@ -94,7 +94,9 @@ window.application.physics.Physics = window.application.physics.Physics || {};
 	
 	var center = new Point(centreStageX, centreStageY);
 	var physics = new Physics(center);
-	physics.addAllBodies(glyphs);
+	physics.addAllBodies(glyphs.filter(function(body) {
+		return !(body instanceof Connection);
+	}));
 
 	function draw() {
 		var layer = new Kinetic.Layer();
