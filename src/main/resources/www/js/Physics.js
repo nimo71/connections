@@ -59,7 +59,7 @@ window.application.physics = window.application.physics || {};
 				if ((dx >= 0) && (dy < 0)) return 4;
 			};
 			
-			var magnitude = 10;
+			var magnitude = 2;
 			
 			bodies.foreach(function(body) {
 				var b = body.getPosition();

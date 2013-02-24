@@ -98,12 +98,14 @@ window.application.physics.Physics = window.application.physics.Physics || {};
 		return !(body instanceof Connection);
 	}));
 
+	var layer = new Kinetic.Layer();
+	stage.add(layer);
+	
 	function draw() {
-		var layer = new Kinetic.Layer();
 		glyphs.foreach(function(glyph) {
 			glyph.draw(layer);
 		});
-		stage.add(layer);
+		stage.draw();
 	};
 
 	(function animate() {
