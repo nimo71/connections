@@ -38,17 +38,30 @@ window.application.physics = window.application.physics || {};
 			function centralAttraction(c) {
 				
 				function angle(from, to) {
-					var dy = from.getY() - to.getY();
-					var dx = to.getX() - from.getX();
+					var dy = Math.abs( to.getY() - from.getY() );
+					var dx = Math.abs( to.getX() - from.getX() );
+					if (dx === 0) return (Math.PI / 2);
 					return Math.atan(dy / dx);
+				}
+				
+				function quadrant(from, to) {
+					var dy = to.getY() - from.getY();
+					var dx = to.getX() - from.getX();
+					
+					if ((dx >= 0) && (dy >= 0)) return 1;
+					if ((dx < 0) && (dy < 0)) return 2;
+					if ((dx < 0) && (dy >= 0)) return 3;
+					if ((dx >= 0) && (dy < 0)) return 4;
 				}
 				
 				var magnitude = 10;
 				
 				bodies.foreach(function(body) {
-					var theta = angle(body.getPosition(), c);
-					var cax = magnitude * Math.cos(theta);
-					var cay = magnitude * Math.sin(theta);
+					var b = body.getPosition();
+					var theta = angle(b, c);
+					var q = quadrant(b, c);
+					var cax = magnitude * Math.cos(theta) * ((q === 2 || q === 3) ? -1 : 1);
+					var cay = magnitude * Math.sin(theta) * ((q === 3 || q === 4) ? -1 : 1);
 					forces[body] = new physics.Force(cax, cay);
 				});
 			}
