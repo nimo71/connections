@@ -3,9 +3,13 @@ window.application.glyph = window.application.glyph || {};
 
 (function( glyph, $ ) {
 	
+	var hashCode = 0; 
+	
 	glyph.RoundButton = function(x, y, text) {
 		glyph.Glyph.call( this, x, y );
 		this.text = text;
+		
+		this._hashCode = hashCode++;
 		
 		this.circle = new Kinetic.Circle({
 			x: x,
@@ -84,5 +88,9 @@ window.application.glyph = window.application.glyph || {};
 		this.circle.setPosition(toX, toY);
 		this.loginText.setPosition(toX, toY);
 	};
+	
+	glyph.RoundButton.prototype.hashCode = function() {
+		return this._hashCode;
+	}
 	
 }( window.application.glyph, jQuery ));

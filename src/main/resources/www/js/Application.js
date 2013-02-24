@@ -109,10 +109,13 @@ window.application.physics.Physics = window.application.physics.Physics || {};
 	(function animate() {
 		draw();
 		physics.applyForces();
-		if (!physics.equilibrium()) { 
-			physics.moveBodies();
-			requestAnimationFrame( animate );
+		if (physics.equilibrium()) {
+			if (this.animationFrame) cancelAnimationFrame(this.animationFrame);
+			return; 
 		}
+		physics.moveBodies();
+		physics.clearForces();
+		this.animationFrame = requestAnimationFrame( animate );
 	})();
 	
 }( 		window.util.collections.List,
