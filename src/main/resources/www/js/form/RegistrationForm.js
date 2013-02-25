@@ -1,10 +1,11 @@
-window.application = window.application || {};
-window.application.form = window.application.form || {};
-
-(function( form, $ ) {
-	
-	form.RegistrationForm = function() {
+define(
 		
+["jquery"],
+
+function($) {
+		
+	var RegistrationForm = function() {
+			
 		this.stylesheet = $("<link rel='stylesheet' href='css/registrationForm.css'>");
 		$("head").append(this.stylesheet);
 		
@@ -39,7 +40,7 @@ window.application.form = window.application.form || {};
 		});
 	}
 				
-	form.RegistrationForm.prototype.show = function() {
+	RegistrationForm.prototype.show = function() {
 		var regFormTop = $("#container").height() / 2 - $("#registrationForm").height() / 2;
 		var regFormLeft = $("#container").width() / 2 - $("#registrationForm").width() / 2;
 		
@@ -51,7 +52,7 @@ window.application.form = window.application.form || {};
 		this.regForm.fadeIn("slow");	
 	}
 	
-	form.RegistrationForm.prototype.hide = function() {
+	RegistrationForm.prototype.hide = function() {
 		var regForm = this;
 		this.regForm.fadeOut("slow", function() {
 			this.remove();
@@ -62,7 +63,7 @@ window.application.form = window.application.form || {};
 		});
 	}	
 	
-	form.RegistrationForm.prototype.onRegister = function(registerListener) {
+	RegistrationForm.prototype.onRegister = function(registerListener) {
 		var that = this;
 		function createCallback(emailInput, confirmEmailInput, passwordInput, confirmPasswordInput, listener) {
 			return function() {
@@ -80,4 +81,6 @@ window.application.form = window.application.form || {};
 						registerListener) );
 	}
 	
-} ( window.application.form, jQuery ));
+	return RegistrationForm;
+		
+});

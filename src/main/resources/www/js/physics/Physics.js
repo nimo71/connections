@@ -1,28 +1,30 @@
-window.application = window.application || {};
-window.application.physics = window.application.physics || {};
-
-(function(physics, List, HashMap) {
+define(
+[
+    "util/collections/List", 
+    "util/collections/HashMap",
+    "physics/Force"
+],
+function(List, HashMap, Force) {
 	
-	
-	physics.Physics = function(center) {	
+	var Physics = function(center) {	
 		this._bodies = List.empty();
 		this._centralAttractor = center;
 		this._forces = new HashMap();
-	};
+	}
 	
-	physics.Physics.prototype.addBody =  function(body) {
+	Physics.prototype.addBody =  function(body) {
 		this._bodies = this._bodies.cons(body);
-	};
+	}
 			
-	physics.Physics.prototype.addAllBodies = function(allBodies) {
+	Physics.prototype.addAllBodies = function(allBodies) {
 		this._bodies = this._bodies.consAll(allBodies);
-	};
+	}
 		
-	physics.Physics.prototype.removeBody = function(body) {
+	Physics.prototype.removeBody = function(body) {
 		this._bodies = this._bodies.remove(body);
-	};
+	}
 			
-	physics.Physics.prototype.equilibrium = function() {
+	Physics.prototype.equilibrium = function() {
 		var eq = true;
 		var forces = this._forces;
 		this._bodies.foreach(function (body) {
@@ -33,9 +35,9 @@ window.application.physics = window.application.physics || {};
 			}
 		});
 		return eq;
-	};
+	}
 			
-	physics.Physics.prototype.applyForces = function() {
+	Physics.prototype.applyForces = function() {
 					
 		var bodies = this._bodies; 
 		var forces = this._forces;
@@ -67,27 +69,26 @@ window.application.physics = window.application.physics || {};
 				var q = quadrant(b, c);
 				var cax = magnitude * Math.cos(theta) * ((q === 4 || q === 1) ? 1 : -1);
 				var cay = magnitude * Math.sin(theta) * ((q === 4 || q === 3) ? -1 : 1);
-				forces.put(body, new physics.Force(cax, cay));
+				forces.put(body, new Force(cax, cay));
 			});
 		};
 		
 		centralAttraction(this._centralAttractor);
-	};
+	}
 		
-	physics.Physics.prototype.moveBodies = function() {
+	Physics.prototype.moveBodies = function() {
 		var forces = this._forces;
 		this._bodies.foreach(function(body) {
 			var toX = body.getX() + forces.get(body).getX();
 			var toY = body.getY() + forces.get(body).getY();
 			body.move(toX, toY);
 		});
-	};
+	}
 		
-	physics.Physics.prototype.clearForces = function() {
+	Physics.prototype.clearForces = function() {
 		this._forces = new HashMap();  
-	};
+	}
 	
-}( 
-	window.application.physics, 
-	window.util.collections.List, 
-	window.util.collections.HashMap ));
+	return Physics;
+		
+});

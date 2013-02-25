@@ -1,19 +1,20 @@
-window.applcation = window.application || {};
-window.application.glyph = window.application.glyph || {};
+define(
 
-(function( glyph ) {
+function() {
 	
-	glyph.Point = function(x, y) {
-		var px = x; 
-		var py = y;
-		
-		this.getX = function() {
-			return px;
-		}
-		
-		this.getY = function() {
-			return py;
-		}
+	var Point = function(x, y) {
+		this._x = x; 
+		this._y = y;
 	}
 	
-}( window.application.glyph ));
+	Point.prototype.getX = function() {
+		return this._x;
+	}
+	
+	Point.prototype.getY = function() {
+		return this._y;
+	}
+	
+	return Point;
+	
+});

@@ -1,11 +1,8 @@
-window.application = window.application || {};
-window.application.touch = window.application.touch || {};
-
-(function(touch) {
+define(function() {
 	
 	var listeners = new Array();
 	
-	touch.Touch = {
+	var Touch = {
 			
 		addListener: function(listener) {
 			listeners.push(listener);
@@ -47,6 +44,6 @@ window.application.touch = window.application.touch || {};
 		return false;
 	}, false);
 	
-} (window.application.touch));
-
-
+	return Touch;
+});
+	

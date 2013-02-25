@@ -1,17 +1,21 @@
-window.application = window.application || {};
-window.application.glyph = window.application.glyph || {};
-
-(function( glyph, $ ) {
-	
+define(
+[
+	"vendor/kinetic", 
+	"Touch",
+    "glyph/Glyph", 
+    "glyph/Point"
+],
+function(Kinetic, Touch, Glyph, Point) {
+		
 	var hashCode = 0; 
 	
-	glyph.RoundButton = function(x, y, text) {
-		glyph.Glyph.call( this, x, y );
-		this.text = text;
+	var RoundButton = function(x, y, text) {
+		Glyph.call( this, x, y );
+		this._text = text;
 		
 		this._hashCode = hashCode++;
 		
-		this.circle = new Kinetic.Circle({
+		this._circle = new Kinetic.Circle({
 			x: x,
 			y: y,
 			radius: 50,
@@ -19,55 +23,55 @@ window.application.glyph = window.application.glyph || {};
 			strokeWidth: 1
 		});
 		
-		this.loginText = new Kinetic.Text({
+		this._text = new Kinetic.Text({
 	        x: x,
 	        y: y,
-	        text: this.text,
+	        text: text,
 	        fontSize: 20,
 	        fontFamily: 'Calibri',
 	        fill: 'grey'
 	    });
 		
-		this.loginText.setOffset({
-	        x: this.loginText.getWidth() / 2, 
-	        y: this.loginText.getHeight() / 2
+		this._text.setOffset({
+	        x: this._text.getWidth() / 2, 
+	        y: this._text.getHeight() / 2
 	    });
 	} 
 	
-	glyph.RoundButton.prototype = Object.create( glyph.Glyph.prototype );
-	glyph.RoundButton.prototype.constructor = glyph.RoundButton;
+	RoundButton.prototype = Object.create( Glyph.prototype );
+	RoundButton.prototype.constructor = RoundButton;
 	
-	glyph.RoundButton.prototype.onClick = function(clickHandler) {
-		this.circle.on("click", clickHandler)
+	RoundButton.prototype.onClick = function(clickHandler) {
+		this._circle.on("click", clickHandler)
 	}
 	
-	glyph.RoundButton.prototype.draw = function(layer) {
-		layer.add(this.loginText);
-		layer.add(this.circle);	
+	RoundButton.prototype.draw = function(layer) {
+		layer.add(this._text);
+		layer.add(this._circle);	
 	}
 	
-	glyph.RoundButton.prototype.touchend = function(e) {
+	RoundButton.prototype.touchend = function(e) {
 		var touch = e.changedTouches[0];
 		if (this.contains(touch.clientX, touch.clientY)) {
 			this.touchendHandler(touch);
 		}
 	}
 	
-	glyph.RoundButton.prototype.contains = function(x, y) {
-		var dx = x - this.circle.getX();
-		var dy = this.circle.getY() - y;
+	RoundButton.prototype.contains = function(x, y) {
+		var dx = x - this._circle.getX();
+		var dy = this._circle.getY() - y;
 		
-		return Math.sqrt((dx * dx) + (dy * dy)) <= this.circle.getRadius();
+		return Math.sqrt((dx * dx) + (dy * dy)) <= this._circle.getRadius();
 	}
 	
-	glyph.RoundButton.prototype.connectionPoint = function(to) {
-		var circleX = this.circle.getX();
-		var circleY = this.circle.getY();
+	RoundButton.prototype.connectionPoint = function(to) {
+		var circleX = this._circle.getX();
+		var circleY = this._circle.getY();
 		
 		var posDx = to.getX() - circleX;
 		var posDy = circleY - to.getY(); 
 		
-		var circleRadius = this.circle.getRadius();
+		var circleRadius = this._circle.getRadius();
 		var theta = Math.atan(posDy / posDx);
 		
 		var dx = circleRadius * Math.cos(theta) 
@@ -79,18 +83,19 @@ window.application.glyph = window.application.glyph || {};
 		var x = circleX + dx;
 		var y = circleY + dy;
 		
-		return new glyph.Point(x, y);
+		return new Point(x, y);
 	}
 	
-	glyph.RoundButton.prototype.move = function(toX, toY) {
+	RoundButton.prototype.move = function(toX, toY) {
 		this._x = toX; 
 		this._y = toY;
-		this.circle.setPosition(toX, toY);
-		this.loginText.setPosition(toX, toY);
+		this._circle.setPosition(toX, toY);
+		this._text.setPosition(toX, toY);
 	};
 	
-	glyph.RoundButton.prototype.hashCode = function() {
+	RoundButton.prototype.hashCode = function() {
 		return this._hashCode;
 	}
-	
-}( window.application.glyph, jQuery ));
+		
+	return RoundButton;
+});

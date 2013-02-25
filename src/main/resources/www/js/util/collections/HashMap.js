@@ -1,18 +1,18 @@
-window.util = window.util || {};
-window.util.collections = window.util.collections || {};
-
-(function(collections) {
+define(
+function() {
 	
-	collections.HashMap = function() {
+	var HashMap = function() {
 		this._buckets = {};
-	};
+	}
 	
-	collections.HashMap.prototype.put = function(key, value) {
+	HashMap.prototype.put = function(key, value) {
 		this._buckets[key.hashCode()] = value;
-	};
+	}
 	
-	collections.HashMap.prototype.get = function(key) {
+	HashMap.prototype.get = function(key) {
 		return this._buckets[key.hashCode()];
-	};
+	}
+	
+	return HashMap;
 
-}(window.util.collections));
+});

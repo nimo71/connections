@@ -1,74 +1,77 @@
-window.util = window.util || {};
-window.util.collections = window.util.collections || {};
-
-(function(collections) {
+define (
+		
+function() {
 	
-	collections.List = function(head, tail) {
-		
-		this.head = function() { 
-			return head; 
+	var List = function(head, tail) {
+		this._head = head; 
+		this._tail = tail; 
+	}
+	
+	List.prototype.head = function() { 
+		return this._head; 
+	}
+	
+	List.prototype.tail = function() {
+		if (!this._tail || this._tail.isEmpty()) {
+			return List.empty();
 		}
-		
-		this.tail = function() {
-			if (!tail || tail.isEmpty()) {
-				return collections.List.empty();
-			}
-			if (tail.tail().isEmpty()) {
-				return new collections.List(tail.head(), collections.List.empty());
-			}
-			return tail;
+		if (this._tail.tail().isEmpty()) {
+			return new List(this._tail.head(), List.empty());
 		}
-		
-		this.cons = function(val) {
-			if (this.isEmpty()) {
-				return new collections.List(val, collections.List.empty())
-			}
-			return new collections.List(val, tail.cons(head) );
+		return this._tail;
+	}
+	
+	List.prototype.cons = function(val) {
+		if (this.isEmpty()) {
+			return new List(val, List.empty())
 		}
-		
-		this.consAll = function(vals) { 
-			var thisList = this;
-			vals.foreach(function (val) {
-				thisList = thisList.cons(val);
-			});
-			return thisList;
+		return new List(val, this._tail.cons(this._head) );
+	}
+	
+	List.prototype.consAll = function(vals) { 
+		var thisList = this;
+		vals.foreach(function (val) {
+			thisList = thisList.cons(val);
+		});
+		return thisList;
+	}
+	
+	List.prototype.isEmpty = function() {
+		return !this._head && !this._tail;
+	}
+	
+	List.prototype.foreach = function(fn) {
+		if (this.isEmpty()) {
+			return;
 		}
-		
-		this.isEmpty = function() {
-			return !head && !tail;
+		fn(this._head);
+		this._tail.foreach(fn);
+	}
+	
+	List.prototype.remove = function(val) {
+		if (this.head() === val) {
+			return this.tail();
 		}
-		
-		this.foreach = function(fn) {
-			if (this.isEmpty()) {
-				return;
-			}
-			fn(head);
-			tail.foreach(fn);
-		}
-		
-		this.remove = function(val) {
-			if (this.head() === val) {
-				return this.tail();
-			}
-			else {
-				tail = this.tail().remove(val);
-				return this;
-			}
-		}
-		
-		this.filter = function(matcher) {
-			if (this.isEmpty()) {
-				return collections.List.empty();
-			}
-			if (matcher(this.head())) {
-				return new collections.List(this.head(), this.tail().filter(matcher));
-			}
-			return this.tail().filter(matcher);
+		else {
+			this._tail = this.tail().remove(val);
+			return this;
 		}
 	}
 	
-	collections.List.empty = function() {
-		return new collections.List(undefined, undefined);
+	List.prototype.filter = function(matches) {
+		if (this.isEmpty()) {
+			return List.empty();
+		}
+		if (matches(this.head())) {
+			return new List(this.head(), this.tail().filter(matches));
+		}
+		return this.tail().filter(matches);
 	}
 	
-}(window.util.collections)); 
+	List.empty = function() {
+		return new List(undefined, undefined);
+	}
+	
+	return List; 
+	
+}); 

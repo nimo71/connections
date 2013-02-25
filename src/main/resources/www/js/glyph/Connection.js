@@ -1,9 +1,11 @@
-window.application = window.application || {};
-window.application.glyph = window.application.glyph || {};
-
-(function(glyph) {
-	
-	glyph.Connection = function(from, to) {
+define(
+[
+ 	"glyph/Glyph", 
+ 	"vendor/kinetic"
+],		
+function(Glyph, Kinetic) {
+		
+	var Connection = function(from, to) {
 		this._from = from; 
 		this._to = to;
 		
@@ -16,15 +18,17 @@ window.application.glyph = window.application.glyph || {};
 			points: [ start.getX(), start.getY(), end.getX(), end.getY() ]
 		});
 	}
-	glyph.Connection.prototype = Object.create( glyph.Glyph.prototype );
-	glyph.Connection.prototype.constructor = glyph.Connection;
 	
-	glyph.Connection.prototype.draw = function(layer) {
+	Connection.prototype = Object.create( Glyph.prototype );
+	Connection.prototype.constructor = Connection;
+	
+	Connection.prototype.draw = function(layer) {
 		var start = this._from.connectionPoint(this._to);
 		var end = this._to.connectionPoint(this._from);
 		this._line.setPoints([start.getX(), start.getY(), end.getX(), end.getY()]);
 		
 		layer.add(this._line);
 	}
-	
-}( window.application.glyph ));
+		
+	return Connection;
+});

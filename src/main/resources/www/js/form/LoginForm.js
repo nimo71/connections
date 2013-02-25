@@ -1,9 +1,10 @@
-window.application = window.application || {};
-window.application.form = window.application.form || {};
+define(
 
-(function( form, $ ) {
+["jquery"],  
+
+function($) {
 	
-	form.LoginForm = function() {
+	var LoginForm = function() {
 		
 		this.stylesheet = $("<link rel='stylesheet' href='css/loginForm.css'>");
 		$("head").append(this.stylesheet);
@@ -37,7 +38,7 @@ window.application.form = window.application.form || {};
 		});
 	}
 				
-	form.LoginForm.prototype.show = function() {	
+	LoginForm.prototype.show = function() {	
 		var loginFormTop = $("#container").height() / 2 - $("#loginForm").height() / 2;
  		var loginFormLeft = $("#container").width() / 2 - $("#loginForm").width() / 2;
  		
@@ -49,7 +50,7 @@ window.application.form = window.application.form || {};
 		this.loginForm.fadeIn("slow");	
 	}
 	
-	form.LoginForm.prototype.hide = function() {
+	LoginForm.prototype.hide = function() {
 		var loginForm = this;
 		this.loginForm.fadeOut("slow", function() {
 			this.remove();
@@ -60,7 +61,7 @@ window.application.form = window.application.form || {};
 		});
 	}	
 	
-	form.LoginForm.prototype.onLogin = function(loginListener) {
+	LoginForm.prototype.onLogin = function(loginListener) {
 		var that = this;
 		function createLoginCallback(emailInput, passwordInput, listener) {
 			return function() {
@@ -76,4 +77,6 @@ window.application.form = window.application.form || {};
 						this.passwordInput, 
 						loginListener) );
 	}
-} ( window.application.form, jQuery ));
+	
+	return LoginForm;
+});
