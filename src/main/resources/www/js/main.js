@@ -39,23 +39,18 @@ require([
      "form/LoginForm", 
      "form/RegistrationForm",
      "util/collections/List", 
+     "glyph/Canvas",
      "glyph/Point", 
      "glyph/Connection", 
      "glyph/RoundButton", 
      "physics/Physics", 
      "vendor/kinetic"
 ],     
-function($, LoginForm, RegistrationForm, List, Point, Connection, RoundButton, Physics, Kinetic) {
+function($, LoginForm, RegistrationForm, List, Canvas, Point, Connection, RoundButton, Physics, Kinetic) {
 	
-	var stage = new Kinetic.Stage({
-    	container: "container",
-   		width: $(window).width(), 
-    	height: $(window).height()
-  	});
+	var canvas = new Canvas();
+	var centre = canvas.getCentre();
 	
-  	var centreStageX = stage.getWidth() / 2;
-	var centreStageY = stage.getHeight() / 2;
-
 	function showLoginForm() {
 		var loginForm = new LoginForm();
 		loginForm.onLogin(function(email, password) {
@@ -65,7 +60,7 @@ function($, LoginForm, RegistrationForm, List, Point, Connection, RoundButton, P
 		loginForm.show();
 	}
 	
-	var loginBtn = new RoundButton(centreStageX - 200, centreStageY + 100, "Log In");
+	var loginBtn = new RoundButton(centre.getX() - 200, centre.getY() + 100, "Log In");
 	loginBtn.onClick(function(ev) {
 		showLoginForm();
 	});	
@@ -82,7 +77,7 @@ function($, LoginForm, RegistrationForm, List, Point, Connection, RoundButton, P
 		registrationForm.show();
 	}
 	
-	var registerBtn = new RoundButton(centreStageX + 200, centreStageY + 100, "Register");
+	var registerBtn = new RoundButton(centre.getX() + 200, centre.getY() + 100, "Register");
 	registerBtn.onClick(function(ev) {
 		showRegistrationForm();
 	});	
@@ -90,40 +85,13 @@ function($, LoginForm, RegistrationForm, List, Point, Connection, RoundButton, P
 		showRegistrationForm();
 	});
 	
-	var cxnsBtn = new RoundButton(centreStageX, centreStageY - 100, "Cxns");
+	var cxnsBtn = new RoundButton(centre.getX(), centre.getY() - 100, "Cxns");
 	
-	var glyphs = List.empty()
-		.cons(loginBtn)
-		.cons(registerBtn)
-		.cons(cxnsBtn)
-		.cons(new Connection(cxnsBtn, loginBtn))
-		.cons(new Connection(cxnsBtn, registerBtn));
+	canvas.add(loginBtn)
+		.add(registerBtn)
+		.add(cxnsBtn)
+		.add(new Connection(cxnsBtn, loginBtn))
+		.add(new Connection(cxnsBtn, registerBtn));
 	
-	var center = new Point(centreStageX, centreStageY);
-	var physics = new Physics(center);
-	physics.addAllBodies(glyphs.filter(function(body) {
-		return !(body instanceof Connection);
-	}));
-
-	var layer = new Kinetic.Layer();
-	stage.add(layer);
-	
-	function draw() {
-		glyphs.foreach(function(glyph) {
-			glyph.draw(layer);
-		});
-		stage.draw();
-	};
-
-	(function animate() {
-		draw();
-		physics.applyForces();
-		if (physics.equilibrium()) {
-			if (this.animationFrame) cancelAnimationFrame(this.animationFrame);
-			return; 
-		}
-		physics.moveBodies();
-		physics.clearForces();
-		this.animationFrame = requestAnimationFrame(animate);
-	})();
+	canvas.animateToEquilibrium();
 });

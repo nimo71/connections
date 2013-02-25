@@ -22,12 +22,14 @@ function(Glyph, Kinetic) {
 	Connection.prototype = Object.create( Glyph.prototype );
 	Connection.prototype.constructor = Connection;
 	
-	Connection.prototype.draw = function(layer) {
+	Connection.prototype.addToLayer = function(layer) {
+		layer.add(this._line);
+	}
+	
+	Connection.prototype.update = function() {
 		var start = this._from.connectionPoint(this._to);
 		var end = this._to.connectionPoint(this._from);
 		this._line.setPoints([start.getX(), start.getY(), end.getX(), end.getY()]);
-		
-		layer.add(this._line);
 	}
 		
 	return Connection;

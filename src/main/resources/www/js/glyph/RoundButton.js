@@ -45,9 +45,13 @@ function(Kinetic, Touch, Glyph, Point) {
 		this._circle.on("click", clickHandler)
 	}
 	
-	RoundButton.prototype.draw = function(layer) {
+	RoundButton.prototype.addToLayer = function(layer) {
 		layer.add(this._text);
 		layer.add(this._circle);	
+	}
+	
+	RoundButton.prototype.update = function() {
+		// do nothing
 	}
 	
 	RoundButton.prototype.touchend = function(e) {

@@ -12,7 +12,7 @@ function(List, HashMap, Force) {
 		this._forces = new HashMap();
 	}
 	
-	Physics.prototype.addBody =  function(body) {
+	Physics.prototype.addBody = function(body) {
 		this._bodies = this._bodies.cons(body);
 	}
 			
