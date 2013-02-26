@@ -6,6 +6,14 @@ function() {
 		this._fy = y;
 	}
 	
+	Force.acting = function(from, to, magnitude) {
+		var theta = from.angle(to);
+		var q = from.quadrant(to);
+		var cax = magnitude * Math.cos(theta) * ((q === 4 || q === 1) ? 1 : -1);
+		var cay = magnitude * Math.sin(theta) * ((q === 4 || q === 3) ? -1 : 1);
+		return new Force(cax, cay);
+	}
+	
 	Force.prototype.getX = function() { 
 		return this._fx; 
 	}

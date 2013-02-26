@@ -36,40 +36,27 @@ function(List, HashMap, Force) {
 		});
 		return eq;
 	}
-			
+	
+	/*
+	 * Apply the central attraction to all bodies
+	 *  
+	 * Bodies should repel each other: 
+	 * 	- for each body apply a repulsion force to all the other bodies
+	 * 		- the repulsion force should be
+	 *  
+	 * Connected bodies should attract each other: 
+	 * - for each connection on a body apply an attracting force to the connecting body. 
+	 * 		- the attracting force should be equal to the (body mass) / (the square of the distance between the bodies). 
+	 */
 	Physics.prototype.applyForces = function() {
 					
 		var bodies = this._bodies; 
 		var forces = this._forces;
 		
 		function centralAttraction(c) {
-			
-			function angle(from, to) {
-				var dy = Math.abs( to.getY() - from.getY() );
-				var dx = Math.abs( to.getX() - from.getX() );
-				if (dx === 0) return (Math.PI / 2);
-				return Math.atan(dy / dx);
-			};
-			
-			function quadrant(from, to) {
-				var dy = to.getY() - from.getY();
-				var dx = to.getX() - from.getX();
-	
-				if ((dx >= 0) && (dy >= 0)) return 1;
-				if ((dx < 0) && (dy >= 0)) return 2;
-				if ((dx < 0) && (dy < 0)) return 3;
-				if ((dx >= 0) && (dy < 0)) return 4;
-			};
-			
-			var magnitude = 5;
-			
+			var magnitude = 3;
 			bodies.foreach(function(body) {
-				var b = body.getPosition();
-				var theta = angle(b, c);
-				var q = quadrant(b, c);
-				var cax = magnitude * Math.cos(theta) * ((q === 4 || q === 1) ? 1 : -1);
-				var cay = magnitude * Math.sin(theta) * ((q === 4 || q === 3) ? -1 : 1);
-				forces.put(body, new Force(cax, cay));
+				forces.put(body, Force.acting(body.getPosition(), c, magnitude));
 			});
 		};
 		
