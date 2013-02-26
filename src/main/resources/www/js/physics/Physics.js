@@ -61,7 +61,7 @@ function(List, HashMap, Force) {
 				if ((dx >= 0) && (dy < 0)) return 4;
 			};
 			
-			var magnitude = 2;
+			var magnitude = 5;
 			
 			bodies.foreach(function(body) {
 				var b = body.getPosition();
