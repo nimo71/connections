@@ -54,7 +54,7 @@ function(List, HashMap, Force) {
 		var forces = this._forces;
 		
 		function centralAttraction(c) {
-			var magnitude = 3;
+			var magnitude = 1;
 			bodies.foreach(function(body) {
 				forces.put(body, Force.acting(body.getPosition(), c, magnitude));
 			});
