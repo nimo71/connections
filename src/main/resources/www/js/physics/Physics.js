@@ -2,14 +2,15 @@ define(
 [
     "util/collections/List", 
     "util/collections/HashMap",
-    "physics/Force"
+    "physics/Force", 
+    "physics/Forces"
 ],
-function(List, HashMap, Force) {
+function(List, HashMap, Force, Forces) {
 	
 	var Physics = function(center) {	
 		this._bodies = List.empty();
 		this._centralAttractor = center;
-		this._forces = new HashMap();
+		this._forces = new Forces();
 	}
 	
 	Physics.prototype.addBody = function(body) {
@@ -28,10 +29,10 @@ function(List, HashMap, Force) {
 		var eq = true;
 		var forces = this._forces;
 		this._bodies.foreach(function (body) {
-			if (forces.get(body)) {
+			if (forces.value(body)) {
 				eq = eq 
-					&& Math.abs(forces.get(body).getX()) < 1 
-					&& Math.abs(forces.get(body).getY()) < 1;
+					&& Math.abs(forces.value(body).getX()) < 0.1 
+					&& Math.abs(forces.value(body).getY()) < 0.1;
 			}
 		});
 		return eq;
@@ -54,20 +55,37 @@ function(List, HashMap, Force) {
 		var forces = this._forces;
 		
 		function centralAttraction(c) {
-			var magnitude = 1;
+			var magnitude = 200;
 			bodies.foreach(function(body) {
 				forces.put(body, Force.acting(body.getPosition(), c, magnitude));
 			});
 		};
 		
+		function bodiesRepel() {
+			bodies.foreach(function(from) {
+				bodies.foreach(function(to) {
+					if (from === to) {
+						return; 
+					};
+					
+					var fromPos = from.getPosition();
+					var toPos = to.getPosition();
+					var distance = fromPos.distance(toPos);
+					var magnitude = 1000 / (distance * distance);
+					forces.put(to, Force.acting(toPos, fromPos, -magnitude)); 
+				});
+			});
+		};
+		
 		centralAttraction(this._centralAttractor);
+		bodiesRepel();
 	}
 		
 	Physics.prototype.moveBodies = function() {
 		var forces = this._forces;
 		this._bodies.foreach(function(body) {
-			var toX = body.getX() + forces.get(body).getX();
-			var toY = body.getY() + forces.get(body).getY();
+			var toX = body.getX() + forces.value(body).getX();
+			var toY = body.getY() + forces.value(body).getY();
 			body.move(toX, toY);
 		});
 	}

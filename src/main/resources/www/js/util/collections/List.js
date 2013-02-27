@@ -6,6 +6,10 @@ function() {
 		this._head = head; 
 		this._tail = tail; 
 	}
+
+	List.empty = function() {
+		return new List(undefined, undefined);
+	}
 	
 	List.prototype.head = function() { 
 		return this._head; 
@@ -67,9 +71,14 @@ function() {
 		}
 		return this.tail().filter(matches);
 	}
-	
-	List.empty = function() {
-		return new List(undefined, undefined);
+
+	List.prototype.foldLeft = function(acc, fn) {
+		var accumulation = acc;
+		if (this.isEmpty()) {
+			return accumulation;
+		}
+		accumulation = fn(acc, this.head());
+		return this.tail().foldLeft(accumulation, fn);
 	}
 	
 	return List; 

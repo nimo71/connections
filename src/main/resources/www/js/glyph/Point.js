@@ -30,7 +30,13 @@ function() {
 		if ((dx < 0) && (dy >= 0)) return 2;
 		if ((dx < 0) && (dy < 0)) return 3;
 		if ((dx >= 0) && (dy < 0)) return 4;
-	};
+	}
+	
+	Point.prototype.distance = function(to) {
+		var dx = Math.abs(this.getX() - to.getX());
+		var dy = Math.abs(this.getY() - to.getY());
+		return Math.sqrt((dx * dx) + (dy * dy));
+	}
 	
 	return Point;
 	

@@ -1,5 +1,5 @@
 define(
-function() {
+function(List) {
 	
 	var HashMap = function() {
 		this._buckets = {};
@@ -9,8 +9,12 @@ function() {
 		this._buckets[key.hashCode()] = value;
 	}
 	
-	HashMap.prototype.get = function(key) {
+	HashMap.prototype.value = function(key) {
 		return this._buckets[key.hashCode()];
+	}
+
+	HashMap.prototype.containsKey = function(key) {
+		return (this._buckets[key.hashCode()]) ? true : false;
 	}
 	
 	return HashMap;

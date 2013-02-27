@@ -77,7 +77,7 @@ function($, LoginForm, RegistrationForm, List, Canvas, Point, Connection, RoundB
 		registrationForm.show();
 	}
 	
-	var registerBtn = new RoundButton(centre.getX() + 200, centre.getY() + 100, "Register");
+	var registerBtn = new RoundButton(centre.getX() + 100, centre.getY() + 100, "Register");
 	registerBtn.onClick(function(ev) {
 		showRegistrationForm();
 	});	
@@ -87,7 +87,8 @@ function($, LoginForm, RegistrationForm, List, Canvas, Point, Connection, RoundB
 	
 	var cxnsBtn = new RoundButton(centre.getX(), centre.getY() - 100, "Cxns");
 	
-	canvas.add(loginBtn)
+	canvas
+		.add(loginBtn)
 		.add(registerBtn)
 		.add(cxnsBtn)
 		.add(new Connection(cxnsBtn, loginBtn))
