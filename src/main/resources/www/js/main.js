@@ -44,7 +44,7 @@ require([
      "glyph/Connection", 
      "glyph/RoundButton", 
      "physics/Physics", 
-     "vendor/kinetic"
+     "lib/kinetic"
 ],     
 function($, LoginForm, RegistrationForm, List, Canvas, Point, Connection, RoundButton, Physics, Kinetic) {
 	
@@ -60,7 +60,7 @@ function($, LoginForm, RegistrationForm, List, Canvas, Point, Connection, RoundB
 		loginForm.show();
 	}
 	
-	var loginBtn = new RoundButton(centre.getX() - 200, centre.getY() + 100, "Log In");
+	var loginBtn = new RoundButton(centre.getX(), centre.getY(), "Log In");
 	loginBtn.onClick(function(ev) {
 		showLoginForm();
 	});	
@@ -85,13 +85,13 @@ function($, LoginForm, RegistrationForm, List, Canvas, Point, Connection, RoundB
 		showRegistrationForm();
 	});
 	
-	var cxnsBtn = new RoundButton(centre.getX(), centre.getY() - 100, "Cxns");
+	var cxnsBtn = new RoundButton(centre.getX(), centre.getY(), "Cxns");
 	
 	canvas
-		.add(loginBtn)
+		//.add(loginBtn)
 		.add(registerBtn)
 		.add(cxnsBtn)
-		.add(new Connection(cxnsBtn, loginBtn))
+//		.add(new Connection(cxnsBtn, loginBtn))
 		.add(new Connection(cxnsBtn, registerBtn));
 	
 	canvas.animateToEquilibrium();

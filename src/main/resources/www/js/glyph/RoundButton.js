@@ -1,6 +1,6 @@
 define(
 [
-	"vendor/kinetic", 
+	"lib/kinetic", 
 	"Touch",
     "glyph/Glyph", 
     "glyph/Point"

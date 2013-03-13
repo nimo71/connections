@@ -1,6 +1,6 @@
 define(
 [
- 	"vendor/kinetic", 
+ 	"lib/kinetic", 
  	"util/collections/List",
  	"glyph/Point", 
  	"glyph/Connection", 
@@ -48,6 +48,7 @@ function(Kinetic, List, Point, Connection, Physics) {
 		this.draw();
 		this._physics.applyForces();
 		if (this._physics.equilibrium()) {
+			alert("Reached Equilibrium!")
 			if (this._animationFrame) cancelAnimationFrame(this._animationFrame);
 			return; 
 		}

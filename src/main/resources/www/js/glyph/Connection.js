@@ -1,7 +1,7 @@
 define(
 [
  	"glyph/Glyph", 
- 	"vendor/kinetic"
+ 	"lib/kinetic"
 ],		
 function(Glyph, Kinetic) {
 		

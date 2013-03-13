@@ -6,11 +6,33 @@ function() {
 		this._fy = y;
 	}
 	
-	Force.acting = function(from, to, magnitude) {
+	Force.acting = function(from, to, mass) {
+		
+		function limit(v, limit) {
+			var val = v
+			if (val > limit) val = limit;
+			if (val < -limit) val = -limit;
+			return val;
+		}
+		jj
+		var distance = from.distance(to);
+		if (distance === 0) {
+			distance = 1; 
+		}
 		var theta = from.angle(to);
 		var q = from.quadrant(to);
-		var cax = magnitude * Math.cos(theta) * ((q === 4 || q === 1) ? 1 : -1);
-		var cay = magnitude * Math.sin(theta) * ((q === 4 || q === 3) ? -1 : 1);
+		
+		/*    Quadrants
+			  
+			 	3 | 4
+	           -------
+	            2 | 1	
+		 */
+		var cay = (mass * Math.sin(theta) * ((q === 4 || q === 3) ? -1 : 1)) / (distance * distance);
+		var cax = (mass * Math.cos(theta) * ((q === 3 || q === 2) ? -1 : 1)) / (distance * distance);
+		
+		cax = limit(cax, 20);
+		cay = limit(cay, 20);
 		return new Force(cax, cay);
 	}
 	
@@ -30,4 +52,4 @@ function() {
 	
 	return Force;
 
-});
+}); 

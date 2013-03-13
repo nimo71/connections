@@ -55,9 +55,9 @@ function(List, HashMap, Force, Forces) {
 		var forces = this._forces;
 		
 		function centralAttraction(c) {
-			var magnitude = 200;
+			var mass = 20000;
 			bodies.foreach(function(body) {
-				forces.put(body, Force.acting(body.getPosition(), c, magnitude));
+				forces.put(body, Force.acting(body.getPosition(), c, mass));
 			});
 		};
 		
@@ -65,14 +65,12 @@ function(List, HashMap, Force, Forces) {
 			bodies.foreach(function(from) {
 				bodies.foreach(function(to) {
 					if (from === to) {
-						return; 
+						return;
 					};
-					
 					var fromPos = from.getPosition();
 					var toPos = to.getPosition();
-					var distance = fromPos.distance(toPos);
-					var magnitude = 1000 / (distance * distance);
-					forces.put(to, Force.acting(toPos, fromPos, -magnitude)); 
+					var mass = 10000;
+ 					forces.put(to, Force.acting(toPos, fromPos, -mass)); 
 				});
 			});
 		};
