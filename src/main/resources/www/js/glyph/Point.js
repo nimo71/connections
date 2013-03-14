@@ -16,9 +16,10 @@ function() {
 	}
 
 	Point.prototype.angle = function(to) {
-		var dy = Math.abs( to.getY() - this.getY() );
-		var dx = Math.abs( to.getX() - this.getX() );
+		var dy = to.getY() - this.getY();
+		var dx = to.getX() - this.getX();
 		if (dx === 0) return (Math.PI / 2);
+		if (dx < 0) return Math.atan(dy / dx) + Math.PI; 
 		return Math.atan(dy / dx);
 	}
 	

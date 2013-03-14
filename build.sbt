@@ -10,8 +10,8 @@ libraryDependencies ++= Seq(
     "org.clapper" %% "avsl" % "0.4",
     "org.scalatest" %% "scalatest" % "1.6.1" % "test",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
-    "com.jolbox" % "bonecp" % "0.7.1.RELEASE",
-    "com.google.jstestdriver" % "jstestdriver" % "1.3.5"
+    "com.jolbox" % "bonecp" % "0.7.1.RELEASE"//,
+    //"com.google.jstestdriver" % "jstestdriver" % "1.3.5"
 )
 
 // jasmine conf
