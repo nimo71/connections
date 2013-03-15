@@ -76,6 +76,28 @@ define(['glyph/Point'],
 				
 				expect(from.angle(to)).toEqual(Math.PI);
 			});
+			
+			it ("returns 5 * pi / 4 when from is on the origin and to is at -100, -100", function() {
+				var from = new Point(0, 0);
+				var to = new Point(-100, -100);
+				
+				expect(from.angle(to)).toEqual(5 * Math.PI / 4);
+			});
+			
+			it ("returns 3 * pi / 2 when from is on the origin and to is at 0, -100", function() {
+				var from = new Point(0, 0);
+				var to = new Point(0, -100);
+				
+				expect(from.angle(to)).toEqual(3 * Math.PI / 2);
+			});
+			
+			it ("returns 15 * pi / 8 when from is on the origin and to is at 100, -100", function() {
+				var from = new Point(0, 0);
+				var to = new Point(100, -100);
+				
+				expect(from.angle(to)).toEqual(7 * Math.PI / 4);
+			});		
+			
 		});
     }
 );

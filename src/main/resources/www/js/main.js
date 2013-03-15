@@ -60,7 +60,7 @@ function($, LoginForm, RegistrationForm, List, Canvas, Point, Connection, RoundB
 		loginForm.show();
 	}
 	
-	var loginBtn = new RoundButton(centre.getX(), centre.getY(), "Log In");
+	var loginBtn = new RoundButton(centre.getX() - 100, centre.getY() - 100, "Log In");
 	loginBtn.onClick(function(ev) {
 		showLoginForm();
 	});	
@@ -88,10 +88,10 @@ function($, LoginForm, RegistrationForm, List, Canvas, Point, Connection, RoundB
 	var cxnsBtn = new RoundButton(centre.getX(), centre.getY(), "Cxns");
 	
 	canvas
-		//.add(loginBtn)
+		.add(loginBtn)
 		.add(registerBtn)
 		.add(cxnsBtn)
-//		.add(new Connection(cxnsBtn, loginBtn))
+		.add(new Connection(cxnsBtn, loginBtn))
 		.add(new Connection(cxnsBtn, registerBtn));
 	
 	canvas.animateToEquilibrium();

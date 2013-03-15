@@ -14,13 +14,13 @@ function() {
 			if (val < -limit) val = -limit;
 			return val;
 		}
-		jj
+		
 		var distance = from.distance(to);
 		if (distance === 0) {
 			distance = 1; 
 		}
 		var theta = from.angle(to);
-		var q = from.quadrant(to);
+//		var q = from.quadrant(to);
 		
 		/*    Quadrants
 			  
@@ -28,11 +28,13 @@ function() {
 	           -------
 	            2 | 1	
 		 */
-		var cay = (mass * Math.sin(theta) * ((q === 4 || q === 3) ? -1 : 1)) / (distance * distance);
-		var cax = (mass * Math.cos(theta) * ((q === 3 || q === 2) ? -1 : 1)) / (distance * distance);
+//		var cay = (mass * Math.sin(theta) * ((q === 4 || q === 3) ? -1 : 1)) / (distance * distance);
+//		var cax = (mass * Math.cos(theta) * ((q === 3 || q === 2) ? -1 : 1)) / (distance * distance);
+		var cay = (mass * Math.sin(theta) / (distance * distance));
+		var cax = (mass * Math.cos(theta) / (distance * distance));
 		
-		cax = limit(cax, 20);
-		cay = limit(cay, 20);
+		cax = limit(cax, 100);
+		cay = limit(cay, 100);
 		return new Force(cax, cay);
 	}
 	

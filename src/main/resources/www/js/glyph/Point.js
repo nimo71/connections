@@ -18,9 +18,18 @@ function() {
 	Point.prototype.angle = function(to) {
 		var dy = to.getY() - this.getY();
 		var dx = to.getX() - this.getX();
-		if (dx === 0) return (Math.PI / 2);
-		if (dx < 0) return Math.atan(dy / dx) + Math.PI; 
-		return Math.atan(dy / dx);
+
+		if (dx === 0 && dy === 0) return 0;
+		if (dx === 0 && dy > 0) return Math.PI / 2; 
+		if (dx === 0 && dy < 0) return 3 * Math.PI / 2;
+		if (dy === 0 && dx < 0) return Math.PI; 
+		
+		switch (this.quadrant(to)) {
+			case 1 : return Math.atan(dy / dx);
+			case 2 : 
+			case 3 : return Math.PI + Math.atan(dy / dx);
+			case 4 : return 2 * Math.PI + Math.atan(dy / dx);
+		}
 	}
 	
 	Point.prototype.quadrant = function(to) {
